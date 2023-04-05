@@ -1,0 +1,56 @@
+*{
+    margin:2px;
+    padding:2px;
+}
+
+.container {
+    width: 100%;
+    text-align: center;
+  }
+.container input {
+    
+    width: 65%;
+  }
+  
+
+  .table {
+    width: 65%;
+    margin: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-bottom: 1px solid black;
+    /* display: flex; */
+  }
+  .table tr {
+    width: 80%;
+    border-bottom: 1px solid black;
+  }
+  .table tr:hover {
+    background-color: lightgray;
+  }
+  .table  th {
+    width: 28%;
+    border-bottom: 1px solid black;
+  }
+  .pagination {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    text-decoration: none;
+    list-style: none;
+    margin: auto;
+  }
+  
+  .footer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn button{
+    margin-right:4px;
+    background-color: red;
+    color:white;
+  }
+  
+  
