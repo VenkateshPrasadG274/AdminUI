@@ -26,6 +26,7 @@ then start the application
 We can view the output on `http://localhost:3000/`
 
 
+
 # HOw to use Application
 
 On start of the application, user can view the list of users data, a searchBox, delete button, pages.
@@ -34,6 +35,10 @@ A user can edit particular row (name) by clciking on edit icon provided in the r
 A user can delete any row data by clciking on delete icon from the row, or user can delete multiple data by clicking on chechboxes provided in the respective rows, or if user wants to delete the current page data , he can table head checkbox , which deletes all users present in the particular page.
 
 
+
+# External Libraries 
+
+React Icons : for delete , save icons ( `https://react-icons.github.io/react-icons`);
 
 
 # Contact:
