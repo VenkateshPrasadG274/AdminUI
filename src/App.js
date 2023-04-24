@@ -1,12 +1,45 @@
+import "./App.css";
+import { useState } from "react";
+import MyList from "./Components/MyList";
+import { MyContext } from "./Components/MyList";
+import SearchBar from "./Components/SearchBar";
+import Pagination from "./Components/Pagination";
 
-import './App.css';
-import MyList from './Components/MyList';
+
+
 
 function App() {
+  const [users, setUsers] = useState([]);
+  const [searchedUser, setSearchedUser] = useState();
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState();
+  const currentUsers = [];
+  const perPage = 10;
+
   return (
-    <div className="App">
-     <MyList/>
-    </div>
+    <MyContext.Provider
+      value={{
+        users,
+        setUsers,
+        searchedUser,
+        setSearchedUser,
+        filteredUsers,
+        setFilteredUsers,
+        currentPage,
+        setCurrentPage,
+        totalPages,
+        setTotalPages,
+        perPage,
+        currentUsers,
+      }}
+    >
+      <div className="App">
+          <SearchBar />
+          <MyList/>
+          <Pagination />
+      </div>
+    </MyContext.Provider>
   );
 }
 

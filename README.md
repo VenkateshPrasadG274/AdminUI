@@ -1,3 +1,41 @@
+This Web app is a simple React Application which allows users to view and edit the list of users data.
+
+This Web app is created as part of Geektrust AdminUi Challenge. 
+Any changes or modification suggestions are welcome
+
+
+# Built 
+This application is created with React
+
+# Getting Started
+
+To start with this application , Node.js needs to installed
+
+## `npm install`
+
+then start the application 
+
+## `npm start`
+
+We can view the output on `http://localhost:3000/`
+
+
+This projected can be cloned to local machine by
+
+## ``
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
