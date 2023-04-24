@@ -1,11 +1,12 @@
 import React from "react";
 import { useContext ,useEffect} from "react";
+import "./MyList.css"
 import { MyContext } from "./MyList";
 
 
 export default function Pagination(){
 
-    const {filteredUsers,currentPage,perPage,setCurrentPage,totalPages,setTotalPages} =useContext(MyContext);
+    const {filteredUsers,perPage,setCurrentPage,totalPages,setTotalPages} =useContext(MyContext);
 
   
     const pageNumbers = [];

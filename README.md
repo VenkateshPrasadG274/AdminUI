@@ -1,3 +1,5 @@
+# Introduction
+
 This Web app is a simple React Application which allows users to view and edit the list of users data.
 
 This Web app is created as part of Geektrust AdminUi Challenge. 
@@ -27,7 +29,7 @@ We can view the output on `http://localhost:3000/`
 
 
 
-# HOw to use Application
+# How to use Application
 
 On start of the application, user can view the list of users data, a searchBox, delete button, pages.
 A user can search by any name, email ,role by typing into the search box.
