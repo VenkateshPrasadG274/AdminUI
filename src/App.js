@@ -35,6 +35,8 @@ function App() {
       }}
     >
       <div className="App">
+
+        <h2 style={{textalign:"center"}}> AdminUI Dashboard</h2>
           <SearchBar />
           <MyList/>
           <Pagination />

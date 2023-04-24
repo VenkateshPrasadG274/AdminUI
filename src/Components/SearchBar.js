@@ -28,7 +28,7 @@ export default function SearchBar() {
     <div>
       <input
         type="search"
-        placeholder="Search Users"
+        placeholder="Search by name, email or role"
         onChange={(e) => setSearchedUser(e.target.value)}
       />
     </div>

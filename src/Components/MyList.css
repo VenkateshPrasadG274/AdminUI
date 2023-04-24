@@ -10,6 +10,7 @@
 
 input {
   width:100%;
+ justify-content: center;
 }
 
   .table {
@@ -31,6 +32,7 @@ input {
   {
     width: 28%;
     border-bottom: 1px solid black;
+    text-align: left;
   }
   .pagination {
     width: 100%;
@@ -52,6 +54,7 @@ input {
     margin-right:4px;
     background-color: red;
     color:white;
+    
   }
   
   

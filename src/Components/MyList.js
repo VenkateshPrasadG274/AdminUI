@@ -2,7 +2,8 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./MyList.css";
-import { AiOutlineDelete, AiOutlineEdit, AiOutlineSave } from "react-icons/ai";
+import { AiOutlineDelete } from "react-icons/ai";
+import {FaRegEdit,FaRegSave} from "react-icons/fa";
 
 export const MyContext = React.createContext({});
 
@@ -170,9 +171,9 @@ export default function MyList() {
             <td>{user.role}</td>
             <td>
               {isEditing && user.id === editId ? (
-                <AiOutlineSave onClick={() => handleSave(user.id)} />
+                <FaRegSave onClick={() => handleSave(user.id)} />
               ) : (
-                <AiOutlineEdit
+                <FaRegEdit
                   onClick={() => handleEdit(user.id, user.name, user.email)}
                 />
               )}
