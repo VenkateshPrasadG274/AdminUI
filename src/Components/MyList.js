@@ -1,28 +1,31 @@
-import { useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./MyList.css";
-import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import { GiCancel } from "react-icons/gi";
+import { AiOutlineDelete, AiOutlineEdit, AiOutlineSave } from "react-icons/ai";
 
+export const MyContext = React.createContext({});
 
 export default function MyList() {
-  // states
+  // Global states
 
-  const [users, setUsers] = useState([]);
-  const [searchedUser, setSearchedUser] = useState("");
+  const {
+    users,
+    setUsers,
+    filteredUsers,
+    setFilteredUsers,
+    currentPage,
+    perPage,
+  } = useContext(MyContext);
+
+  // Local states
+
   const [deletedUserIds, setDeletedUserIds] = useState([]);
   const [selectedUserIds, setSelectedUserIds] = useState([]);
-
   const [isEditing, setIsEditing] = useState(false);
   const [editId, setEditId] = useState(null);
   const [editName, setEditName] = useState("");
   const [editEmail, setEditEmail] = useState("");
-  const [editRole, setEditRole] = useState("");
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState();
-
-  const perPage = 10;
 
   // Api call function implemented here
 
@@ -30,40 +33,41 @@ export default function MyList() {
     let url =
       "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json";
 
-    let response = await axios.get(url);
-    setUsers(response.data);
+    try {
+      let response = await axios.get(url);
+      setUsers(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
-
-  // filtering users on search and delete
-
-  const filteredUsers = searchedUser
-    ? users
-        .filter(
-          (user) =>
-            user.name.toLowerCase().includes(searchedUser.toLowerCase()) ||
-            user.email.toLowerCase().includes(searchedUser.toLowerCase()) ||
-            user.role.toLowerCase().includes(searchedUser.toLowerCase())
-        )
-        .filter((user) => !deletedUserIds.includes(user.id))
-    : users.filter((user) => !deletedUserIds.includes(user.id));
 
   useEffect(() => {
     performAPICall();
-  }, [deletedUserIds]);
+  }, []);
 
   // handling Delete
 
   const handleDelete = (id) => {
+    const data = users.filter((user) => user.id !== id);
+    setUsers(data);
+
+    const deletedusers = users.filter(
+      (user) => !deletedUserIds.includes(user.id)
+    );
+    setFilteredUsers(deletedusers);
     setDeletedUserIds([...deletedUserIds, id]);
   };
 
   const handleDeleteAll = () => {
-    const remainingUsers = filteredUsers.filter(
+    const remainingUsers = users.filter(
       (user) => !selectedUserIds.includes(user.id)
     );
     setUsers(remainingUsers);
     setSelectedUserIds([]);
   };
+
+  
+  // handling checkbox
 
   const handleCheckboxChange = (event, userId) => {
     const isChecked = event.target.checked;
@@ -74,24 +78,6 @@ export default function MyList() {
     );
   };
 
-  // handling Edit
-
-  const handleEdit = (id, name, email, role) => {
-    setIsEditing(true);
-    setEditId(id);
-    setEditName(name);
-    setEditEmail(email);
-    setEditRole(role);
-  };
-
-  const handleCancel = (id) => {
-    setIsEditing(false);
-    setEditId(id);
-    setEditName("");
-    setEditEmail("");
-    setEditRole("");
-  };
-
   const handleMasterCheckboxChange = (event) => {
     const newSelectedUserIds = event.target.checked
       ? currentUsers.map((user) => user.id)
@@ -99,33 +85,40 @@ export default function MyList() {
     setSelectedUserIds(newSelectedUserIds);
   };
 
-  // pagination
+  // handling Edit
 
+  const handleEdit = (id, name, email) => {
+    setIsEditing(true);
+    setEditId(id);
+    setEditName(name);
+    setEditEmail(email);
+  };
+
+  const handleSave = (id) => {
+    setIsEditing(false);
+    const updatedUser = users.find((user) => user.id === id);
+
+    if (updatedUser) {
+      updatedUser.name = editName;
+      updatedUser.email = editEmail;
+
+      const updatedUsers = [...users];
+      const index = updatedUsers.findIndex((user) => user.id === id);
+      updatedUsers[index] = updatedUser;
+      setUsers(updatedUsers);
+      setEditId(null);
+      setEditName("");
+      setEditEmail("");
+    }
+  };
+
+  // logic for displaying each page 10 users
   const indexOfLastUser = currentPage * perPage;
   const indexOfFirstUser = indexOfLastUser - perPage;
   const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
 
-  const pageNumbers = [];
-  for (let i = 1; i <= totalPages; i++) {
-    pageNumbers.push(i);
-  }
-
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  useEffect(() => {
-    setTotalPages(Math.ceil(filteredUsers.length / perPage));
-  }, [filteredUsers, perPage]);
-
   return (
     <div className="container">
-      <input
-        type="search"
-        placeholder="Search Users"
-        onChange={(e) => setSearchedUser(e.target.value)}
-      />
-
       <table className="table">
         <tr>
           <th>
@@ -174,25 +167,13 @@ export default function MyList() {
                 user.email
               )}
             </td>
+            <td>{user.role}</td>
             <td>
               {isEditing && user.id === editId ? (
-                <input
-                  type="text"
-                  value={editRole}
-                  onChange={(event) => setEditRole(event.target.value)}
-                />
-              ) : (
-                user.role
-              )}
-            </td>
-            <td>
-              {isEditing && user.id === editId ? (
-                <GiCancel onClick={() => handleCancel(user.id)} />
+                <AiOutlineSave onClick={() => handleSave(user.id)} />
               ) : (
                 <AiOutlineEdit
-                  onClick={() =>
-                    handleEdit(user.id, user.name, user.email, user.role)
-                  }
+                  onClick={() => handleEdit(user.id, user.name, user.email)}
                 />
               )}
               <AiOutlineDelete
@@ -209,20 +190,7 @@ export default function MyList() {
           {" "}
           <button onClick={handleDeleteAll}>Delete Selected</button>
         </div>
-        <div>
-          <ul className="pagination">
-            {pageNumbers.map((pageNumber) => (
-              <li key={pageNumber}>
-                <button onClick={() => handlePageChange(pageNumber)}>
-                  {pageNumber}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
       </div>
     </div>
   );
 }
-
-
