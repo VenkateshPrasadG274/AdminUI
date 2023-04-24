@@ -186,12 +186,9 @@ export default function MyList() {
         ))}
       </table>
 
-      <div className="footer">
         <div className="btn">
-          {" "}
           <button onClick={handleDeleteAll}>Delete Selected</button>
         </div>
-      </div>
     </div>
   );
 }

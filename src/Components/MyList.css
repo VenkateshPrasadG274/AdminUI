@@ -3,21 +3,27 @@
     padding:2px;
 }
 
-/* .container {
+ /* css for table container */
+
+.container {
     width: 100%;
     text-align: center;
-  } */
+  }
 
-input {
+/* css for search bar*/
+
+.searchbar input {
   width:100%;
  justify-content: center;
 }
 
+
+/* css for table  */
+
   .table {
     border-collapse: collapse;
     width: 100%;
-    margin: auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    /* box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.26); */
     
   }
   .table tr:hover {
@@ -28,12 +34,15 @@ input {
     background-color: rgb(81, 79, 79);
     color:white;
   }
- th,td
+tr, th,td
   {
-    width: 28%;
+    /* width: 28%; */
     border-bottom: 1px solid black;
     text-align: left;
   }
+
+  /* css for pagination container */
+
   .pagination {
     width: 100%;
     justify-content: center;
@@ -43,18 +52,13 @@ input {
     margin: auto;
   }
   
-  .footer{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
+  /* css for delete all button */
 
   .btn button{
+    float: left;
     margin-right:4px;
     background-color: red;
     color:white;
-    
   }
   
   

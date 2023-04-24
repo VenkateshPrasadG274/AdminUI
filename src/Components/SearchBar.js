@@ -26,11 +26,13 @@ export default function SearchBar() {
 
   return (
     <div>
+      <div className="searchbar">
       <input
         type="search"
         placeholder="Search by name, email or role"
         onChange={(e) => setSearchedUser(e.target.value)}
       />
+      </div>
     </div>
   );
 }
